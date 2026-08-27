@@ -8,6 +8,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -40,30 +42,34 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import com.ehan.app1.ui.theme.App1Theme
 import com.ehan.app1.ui.theme.ThemeMode
+import com.ehan.app1.MainViewModel
 
 class MainActivity : ComponentActivity() {
-    private val Context.dataStore by preferencesDataStore(name = "user_preferences")
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
             App1Theme {
-                greeting(dataStore = dataStore)
+                greeting(viewModel = mainViewModel)
             }
         }
     }
 }
 
 @Composable
-fun greeting(dataStore: DataStore<Preferences>) {
-    val DATA1_KEY = stringPreferencesKey("data1")
-    val _angka_1: String = dataStore.data.map { preferences ->
-            preferences[DATA1_KEY] ?: "0"
-    }
-    val angka_1: Int = _angka_1.toIntOrNull() ?: 0
+fun greeting(
+    viewModel: MainViewModel,
+    modifier: Modifier = Modifier
+) {
+    val angka_1 by viewModel.userName.collectAsStateWithLifecycle()
+    
+    // State lokal khusus untuk menampung input ketikan teks sementara
+    var inputText by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier
@@ -76,9 +82,7 @@ fun greeting(dataStore: DataStore<Preferences>) {
         Button(
             onClick = {
                 angka_1++
-                dataStore.edit { preferences ->
-                    preferences[DATA1_KEY] = angka_1.toString()
-                }
+                viewModel.updateName(angka_1)
             }
         ) {
             Text(
