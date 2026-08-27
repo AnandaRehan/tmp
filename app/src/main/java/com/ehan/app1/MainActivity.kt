@@ -45,7 +45,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.launch
 import com.ehan.app1.ui.theme.App1Theme
 import com.ehan.app1.ui.theme.ThemeMode
-import com.ehan.app1.MainViewModel
+import com.ehan.app1.ui.MainViewModel
 
 class MainActivity : ComponentActivity() {
     private val mainViewModel: MainViewModel by viewModels()
