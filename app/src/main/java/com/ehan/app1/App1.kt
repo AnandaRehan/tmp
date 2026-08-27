@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
-import com.ehan.data.UserPreferences
+import com.ehan.app1.data.UserPreferences
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_settings")
 
