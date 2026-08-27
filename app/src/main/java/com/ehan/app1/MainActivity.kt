@@ -66,7 +66,11 @@ fun greeting(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    val angka_1 by viewModel.userName.collectAsStateWithLifecycle()
+    // Ambil Owner Lifecycle dari package UI asli secara eksplisit
+    val lifecycleOwner = androidx.compose.ui.platform.LocalLifecycleOwner.current
+
+// Oper owner tersebut ke dalam parameter fungsi collect
+    val angka_1 by viewModel.userName.collectAsStateWithLifecycle(lifecycleOwner = lifecycleOwner)
 
     // State lokal khusus untuk menampung input ketikan teks sementara
     var inputText by remember { mutableStateOf("") }
