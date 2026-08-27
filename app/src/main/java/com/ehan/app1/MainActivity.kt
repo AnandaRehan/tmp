@@ -24,6 +24,7 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -65,7 +66,7 @@ fun greeting(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    var angka_1 by viewModel.userName.collectAsStateWithLifecycle()
+    var angka_1 by viewModel.userName.collectAsStateWithLifecycle() { mutableIntStateOf(0) }
 
     // State lokal khusus untuk menampung input ketikan teks sementara
     var inputText by remember { mutableStateOf("") }
@@ -80,7 +81,7 @@ fun greeting(
         Text(text = "Angka Saat Ini " + angka_1.toString())
         Button(
             onClick = {
-                angka_1++
+                angka_1 = angka_1 
                 viewModel.updateName(angka_1)
             }
         ) {
