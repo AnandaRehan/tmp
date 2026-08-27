@@ -1,4 +1,4 @@
-package com.ehan.app1.theme
+package com.ehan.app1.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes

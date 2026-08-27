@@ -33,7 +33,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
-import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ehan.app1.ui.theme.App1Theme
 import com.ehan.app1.ui.theme.ThemeMode
 
@@ -45,22 +51,20 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             App1Theme {
-                greeting(dataStore)
+                greeting(dataStore = dataStore)
             }
         }
     }
 }
 
 @Composable
-fun greeting(private val dataStore: DataStore<Preferences>) {
-    private val DATA1_KEY = stringPreferencesKey("data1")
+fun greeting(dataStore: DataStore<Preferences>) {
+    val DATA1_KEY = stringPreferencesKey("data1")
     val _angka_1: String = dataStore.data.map { preferences ->
             preferences[DATA1_KEY] ?: "0"
     }
-    val angka_1: Int = when (_angka_1.toIntOrNull()) {
-        "null" -> 0
-        else -> _angka_1.toInt() ?: 0
-    }
+    val angka_1: Int = _angka_1.toIntOrNull() ?: 0
+
     Column(
         modifier = Modifier
             .fillMaxSize()
