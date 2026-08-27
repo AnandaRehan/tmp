@@ -21,13 +21,13 @@ class UserPreferences(private val context: Context) {
     val userNameFlow: Flow<Int> = context.dataStore.data
         .map { preferences ->
             // Mengembalikan nilai tersimpan, atau string kosong "" jika null
-            preferences[USER_NAME_KEY] ?: 0
+            preferences[DATA1_KEY] ?: 0
         }
 
     // 4. Menulis/Menyimpan Data (Wajib menggunakan fungsi suspend / di dalam Coroutine)
     suspend fun saveUserName(name: Int) {
         context.dataStore.edit { preferences ->
-            preferences[USER_NAME_KEY] = name
+            preferences[DATA1_KEY] = name
         }
     }
 }
