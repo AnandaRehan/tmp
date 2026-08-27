@@ -25,7 +25,7 @@ class UserPreferences(private val context: Context) {
         }
 
     // 4. Menulis/Menyimpan Data (Wajib menggunakan fungsi suspend / di dalam Coroutine)
-    suspend fun saveUserName(name: int) {
+    suspend fun saveUserName(name: Int) {
         context.dataStore.edit { preferences ->
             preferences[USER_NAME_KEY] = name
         }
