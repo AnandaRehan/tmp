@@ -14,12 +14,13 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import com.ehan.app1.App1
 import com.ehan.app1.data.UserPreferences
+
 class MainViewModel(
-    private val preferencesRepository: UserPreferences
+    private val userPreferences: UserPreferences
 ) : ViewModel() {
 
     // StateFlow sekarang memegang objek AppPreferences lengkap
-    val userName: StateFlow<Int> = preferencesRepository.userNameFlow.stateIn(
+    val userName: StateFlow<Int> = userPreferences.userNameFlow.stateIn(
         scope = viewModelScope,
         started = SharingStarted.WhileSubscribed(5000),
         initialValue = 0
@@ -27,7 +28,7 @@ class MainViewModel(
 
     fun updateName(newName: Int) {
         viewModelScope.launch {
-            preferencesRepository.saveUserName(newName)
+            userPreferences.saveUserName(newName)
         }
     }
 
@@ -36,7 +37,7 @@ class MainViewModel(
             initializer {
                 val application = (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as App1)
                 MainViewModel(
-                    preferencesRepository = application.preferencesRepository
+                    userPreferences = application.userPreferences
                 )
             }
         }

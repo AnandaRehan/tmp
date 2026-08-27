@@ -19,7 +19,7 @@ class App1 : Application() {
     }
 
     companion object {
-        lateinit var instance: Kalkulator
+        lateinit var instance: App1
             private set
     }
 }
