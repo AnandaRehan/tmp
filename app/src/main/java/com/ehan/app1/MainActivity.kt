@@ -66,7 +66,7 @@ fun greeting(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    var angka_1 by viewModel.userName.collectAsStateWithLifecycle() { mutableIntStateOf(0) }
+    val angka_1 by viewModel.userName.collectAsStateWithLifecycle()
 
     // State lokal khusus untuk menampung input ketikan teks sementara
     var inputText by remember { mutableStateOf("") }
@@ -81,8 +81,7 @@ fun greeting(
         Text(text = "Angka Saat Ini " + angka_1.toString())
         Button(
             onClick = {
-                angka_1 = angka_1 
-                viewModel.updateName(angka_1)
+                viewModel.updateName(angka_1 + 1)
             }
         ) {
             Text(
