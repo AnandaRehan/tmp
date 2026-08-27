@@ -65,8 +65,8 @@ fun greeting(
     viewModel: MainViewModel,
     modifier: Modifier = Modifier
 ) {
-    val angka_1 by viewModel.userName.collectAsStateWithLifecycle()
-    
+    var angka_1 by viewModel.userName.collectAsStateWithLifecycle()
+
     // State lokal khusus untuk menampung input ketikan teks sementara
     var inputText by remember { mutableStateOf("") }
 

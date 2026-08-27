@@ -9,7 +9,7 @@ import com.ehan.app1.data.UserPreferences
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_settings")
 
-class MyApplication : Application() {
+class App1 : Application() {
 
     lateinit var userPreferences: UserPreferences
         private set
