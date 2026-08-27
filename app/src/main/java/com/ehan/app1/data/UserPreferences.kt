@@ -10,15 +10,15 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserPreferences(private val context: Context) {
+class UserPreferences(private val dataStore: DataStore<Preferences>) {
 
     companion object {
         // 2. Tentukan Key unik beserta tipe datanya (stringPreferencesKey, intPreferencesKey, dll.)
-        val DATA1_KEY = intPreferencesKey("data1")
+        private val DATA1_KEY = intPreferencesKey("data1")
     }
 
     // 3. Membaca Data (Mengembalikan data dalam bentuk Flow secara reactive)
-    val userNameFlow: Flow<Int> = context.dataStore.data
+    val userNameFlow: Flow<Int> = dataStore.data
         .map { preferences ->
             // Mengembalikan nilai tersimpan, atau string kosong "" jika null
             preferences[DATA1_KEY] ?: 0
@@ -26,7 +26,7 @@ class UserPreferences(private val context: Context) {
 
     // 4. Menulis/Menyimpan Data (Wajib menggunakan fungsi suspend / di dalam Coroutine)
     suspend fun saveUserName(name: Int) {
-        context.dataStore.edit { preferences ->
+        dataStore.edit { preferences ->
             preferences[DATA1_KEY] = name
         }
     }

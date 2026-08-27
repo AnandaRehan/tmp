@@ -48,7 +48,7 @@ import com.ehan.app1.ui.theme.ThemeMode
 import com.ehan.app1.ui.MainViewModel
 
 class MainActivity : ComponentActivity() {
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels() { MainViewModel.Factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

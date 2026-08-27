@@ -11,11 +11,15 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "us
 
 class App1 : Application() {
 
-    lateinit var userPreferences: UserPreferences
-        private set
+    val userPreferences = UserPreferences(dataStore)
 
     override fun onCreate() {
         super.onCreate()
-        userPreferences = UserPreferences(this)
+        instance = this
+    }
+
+    companion object {
+        lateinit var instance: Kalkulator
+            private set
     }
 }
